@@ -16,6 +16,8 @@ import random
 # will be composed of a list of Sorry! board game cards. The list will consist
 # of 45 cards, 4 of each card excepting the oneCard, of which there will be 5.
 
+# Peter Tempesta, 4/4/2018
+
 class deck:
     cardStack = []
     # The draw method will pop one card off from the end of the list, as if a
