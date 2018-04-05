@@ -1,16 +1,5 @@
-import sorryCard
-import twelveCard
-import elevenCard
-import tenCard
-import eightCard
-import sevenCard
-import fiveCard
-import fourCard
-import threeCard
-import twoCard
-import oneCard
-
 import random
+import card
 
 # This class will simulate a deck of cards for the Sorry! board game. This class
 # will be composed of a list of Sorry! board game cards. The list will consist
@@ -26,18 +15,18 @@ class deck:
     def draw(cardStack):
         if len(cardStack) == 0:
             for i in range(0,4):
-                cardStack.append(sorryCard.sorryCard)
-                cardStack.append(twelveCard.twelveCard)
-                cardStack.append(elevenCard.elevenCard)
-                cardStack.append(tenCard.tenCard)
-                cardStack.append(eightCard.eightCard)
-                cardStack.append(sevenCard.sevenCard)
-                cardStack.append(fiveCard.fiveCard)
-                cardStack.append(fourCard.fourCard)
-                cardStack.append(threeCard.threeCard)
-                cardStack.append(twoCard.twoCard)
+                cardStack.append(card.sorryCard)
+                cardStack.append(card.twelveCard)
+                cardStack.append(card.elevenCard)
+                cardStack.append(card.tenCard)
+                cardStack.append(card.eightCard)
+                cardStack.append(card.sevenCard)
+                cardStack.append(card.fiveCard)
+                cardStack.append(card.fourCard)
+                cardStack.append(card.threeCard)
+                cardStack.append(card.twoCard)
             for i in range(0,5):
-                cardStack.append(oneCard.oneCard)
+                cardStack.append(card.oneCard)
             random.shuffle(cardStack)
             return cardStack.pop()
         else:
@@ -45,7 +34,7 @@ class deck:
     
             
 # The following code is meant to test this class.    
-#testCard = sorryCard.sorryCard
+#testCard = card.sorryCard
 #testCard.printText()
 
 #testDeck = deck
