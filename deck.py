@@ -31,19 +31,3 @@ class deck:
             return cardStack.pop()
         else:
             return cardStack.pop()
-    
-            
-# The following code is meant to test this class.    
-#testCard = card.sorryCard
-#testCard.printText()
-
-#testDeck = deck
-#testDeck.cardStack[0].printText()
-#print(len(testDeck.cardStack))
-#testDeck.cardStack.pop().printText()
-#print(len(testDeck.cardStack))
-
-#testDeck = deck
-#print(len(testDeck.cardStack))
-#testDeck.draw(testDeck.cardStack).printText()
-#print(len(testDeck.cardStack))

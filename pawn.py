@@ -9,47 +9,32 @@
 
 class pawn:
 
-    # Initially, color and position offset are negative. The position offset is
-    # an integer used to help determine a pawns position in regard to another
-    # pawn, particularly of another color.
-    pawnColor = None
-    pawnPosOffset = None
+    # This class has a modified constructor which needs a string representing
+    # a color, so that the pawns may be colored accordingly.
+    def __init__(self, colorChoice):
 
-    # When not on the board, the common position and safety position are set
-    # as -1. They are initialized as -1 as well, since a pawn does not start on
-    # the common board or the safety ramp.
-    pawnCommonPosition = -1
-    pawnSafetyPosition = -1
+        # Initially, color and position offset are None. The position offset
+        # is an integer used to help determine a pawns position in regard to
+        # another pawn, particularly of another color.
+        self.pawnColor = None
+        self.pawnPosOffset = None
 
-    # Setting the color of a pawn also sets its offset.
-    def setColorRed(self):
-        self.pawnColor = "red"
-        self.pawnPosOffset = 0
-    def setColorBlue(self):
-        self.pawnColor = "blue"
-        self.pawnPosOffset = 15
-    def setColorYellow(self):
-        self.pawnColor = "yellow"
-        self.pawnPosOffset = 30
-    def setColorGreen(self):
-        self.pawnColor = "green"
-        self.pawnPosOffset = 45
+        # When not on the board, the common position and safety position are set
+        # as -1. They are initialized as -1 as well, since a pawn does not start
+        # on the common board or the safety ramp.
+        self.pawnCommonPosition = -1
+        self.pawnSafetyPosition = -1
 
-    
-
-# The following code is for testing purposes.
-#testPawn = pawn
-#print("Initial Values:")
-#print(testPawn.pawnColor)
-#print(testPawn.pawnPosOffset)
-#print(testPawn.pawnCommonPosition)
-#print(testPawn.pawnSafetyPosition)
-
-#print("Red Pawn, No Offset:")
-#testPawn.setColorRed(testPawn)
-#print(testPawn.pawnColor)
-#print(testPawn.pawnPosOffset)
-#print("Blue Pawn, 15 Offset:")
-#testPawn.setColorBlue(testPawn)
-#print(testPawn.pawnColor)
-#print(testPawn.pawnPosOffset)
+        # The position offset of the pawn depends on its color.
+        if colorChoice == "red":
+            self.pawnColor = "red"
+            self.pawnPosOffset = 30
+        elif colorChoice == "blue":
+            self.pawnColor = "blue"
+            self.pawnPosOffset = 30
+        elif colorChoice == "yellow":
+            self.pawnColor = "yellow"
+            self.pawnPosOffset = 30
+        elif colorChoice == "green":
+            self.pawnColor = "green"
+            self.pawnPosOffset = 30
