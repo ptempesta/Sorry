@@ -36,7 +36,7 @@ for num in range(16):
     btn = Button(topframe, text = " " , height=0, width=0)
     btn.pack(side = LEFT)
 
-#bottom row 
+# bottom common area
 for num in range(16):
     btn = Button(bottomframe, text = " " , height=0, width=0)
     btn.pack(side = LEFT)
@@ -49,17 +49,17 @@ for num in range(14):
     btn = Button(leftframe, text = " " , height=0, width=0)
     btn.pack(side = TOP)
 
-# left safety zone
+# red safety zone
 for i in range(14):
     btn = Label(insideleft, text = " " , height=0, width=0)
     btn.grid(row=i, column=0, pady = 3)
 for i in range(6):
-    btn = Button(insideleft, text = " " , height=0, width=0)
+    btn = Button(insideleft, text = " " , height=0, width=0, command=lambda:safety_zone("red"))
     btn.grid(row=12, column=i)
 
-# top safety zone
+# blue safety zone
 for i in range(6):
-    btn = Button(insideleft, text = " " , height=0, width=0)
+    btn = Button(insideleft, text = " " , height=0, width=0, command=lambda:safety_zone("blue"))
     btn.grid(row=i, column=1)
 
 # RIGHT FRAME
@@ -69,17 +69,28 @@ for num in range(14):
     btn = Button(rightframe, text = " " , height=0, width=0)
     btn.pack(side = TOP)
 
-#right safety zone
+# yellow safety zone
 for i in range(14):
     btn = Label(insideright, text = " " , height=0, width=0)
     btn.grid(row=i, column=0, pady = 3)
 for i in range(6):
-    btn = Button(insideright, text = " " , height=0, width=0)
+    space = "yellow"
+    btn = Button(insideright, text = " " , height=0, width=0, command=lambda:safety_zone("yellow"))
     btn.grid(row=1, column=i)
 
-# bottom safety zone
+# green safety zone
 for i in range(6):
-    btn = Button(insideright, text = " " , height=0, width=0)
+    space = "green"
+    btn = Button(insideright, text = " " , height=0, width=0, command=lambda:safety_zone("green"))
     btn.grid(row=(i+8), column=4)
 
+def safety_zone(color):
+    print(color, "safety zone space")
+
+def common_area():
+    print(color, "safety zone space")
+    
 root.mainloop()
+
+
+
