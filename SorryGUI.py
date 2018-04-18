@@ -1,9 +1,9 @@
 from tkinter import *
-import math 
 
 root = Tk()
 root.resizable(width=False, height=False)
 root.title("Sorry!")
+root.geometry('450x450')
 
 # CREATING FRAMES
 
@@ -68,14 +68,14 @@ for i in range(14):
         # red start zone
         btn = Button(insideleft, text = "" , height=0, width=0, command=lambda:start_zone(btn, "red"))
         btn.grid(row=i, column=0)
-for i in range(6):
+for r_index in range(6):
     btn = Button(insideleft, text = "" , height=0, width=0, command=lambda:safety_zone(btn, "red"))
-    btn.grid(row=12, column=i)
+    btn.grid(row=12, column=r_index)
 
 # blue safety zone
-for i in range(6):
+for b_index in range(6):
     btn = Button(insideleft, text = "" , height=0, width=0, command=lambda:safety_zone(btn, "blue"))
-    btn.grid(row=i, column=1)
+    btn.grid(row=b_index, column=1)
 # blue start zone 
 btn = Button(insideleft, text = "" , height=0, width=0, command=lambda:start_zone(btn, "blue"))
 btn.grid(row=0, column=3)
@@ -89,14 +89,18 @@ for i in range(14):
         # yellow start zone
         btn = Button(insideright, text = "" , height=0, width=0, command=lambda:start_zone(btn, "yellow")) 
         btn.grid(row=i, column=5)
+y_index = 5
 for i in range(6):
     btn = Button(insideright, text = "", height=0, width=0, command=lambda:safety_zone(btn, "yellow"))
     btn.grid(row=1, column=i)
+    y_index-=1
 
+g_index = 5
 # green safety zone
 for i in range(6):
     btn = Button(insideright, text = "" , height=0, width=0, command=lambda:safety_zone(btn, "green"))
     btn.grid(row=(i+8), column=4)
+    g_index -= 1
 # green start 
 btn = Button(insideright, text = "" , height=0, width=0, command=lambda:start_zone(btn, "green"))
 btn.grid(row=13, column=2)
