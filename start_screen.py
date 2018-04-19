@@ -1,6 +1,7 @@
 # start screen
 
 from tkinter import *
+import play_screen
 
 root = Tk()
 root.resizable(width=False, height=False)
@@ -23,7 +24,7 @@ top_right_frame.pack(side = RIGHT)
 
 
 # top right frame 
-play_game = Button(top_right_frame, text = "Play Game", width = 20) 
+play_game = Button(top_right_frame, text = "Play Game", width = 20, command = lambda:play_screen.create_screen()) 
 play_game.pack(side = TOP)
 
 instructions = Button(top_right_frame, text = "Instructions", width = 20) 
