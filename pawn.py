@@ -25,16 +25,24 @@ class pawn:
         self.pawnCommonPosition = -1
         self.pawnSafetyPosition = -1
 
+        # These are several flags to determine whether the pawn is in its start
+        # position, on the common board, on the ending ramp, or in its safety
+        # zone. The pawn is initialized in its start position.
+        self.inStartPos = True
+        self.onCommonBoard = False
+        self.onEndRamp = False
+        self.inSafeZone = False
+
         # The position offset of the pawn depends on its color.
         if colorChoice == "red":
             self.pawnColor = "red"
-            self.pawnPosOffset = 30
+            self.pawnPosOffset = 0
         elif colorChoice == "blue":
             self.pawnColor = "blue"
-            self.pawnPosOffset = 30
+            self.pawnPosOffset = 15
         elif colorChoice == "yellow":
             self.pawnColor = "yellow"
             self.pawnPosOffset = 30
         elif colorChoice == "green":
             self.pawnColor = "green"
-            self.pawnPosOffset = 30
+            self.pawnPosOffset = 45
