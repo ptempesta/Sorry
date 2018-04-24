@@ -5,69 +5,44 @@
 # Peter Tempesta, 4/4/2018
 
 class sorryCard:
-    def option1():
-        # Option 1: Move a pawn from your start area to take the place of
-        # another player's pawn which must return to its own start area.
-        print("Sorry!")   # Testing text.
-    def option2():
-        # Option 2: Move forward 4.
-        print("Move forward 4.")   # Testing text.
+    cardMessage = "Move a pawn from your start area to take the place of \
+another player's pawn which must return to its own start area OR move forward \
+4."
 
 class twelveCard:
-    def option1():
-        # Option 1: Move forward 12.
-        print("Move forward 12.")  # Testing text.
+    cardMessage = "Move forward 12."
 
 class elevenCard:
-    def option1():
-        # Option 1: Move forward 11.
-        print("Move forward 11.")   # Testing text.
-    def option2():
-        # Option 2: Change places with an opponent.
-        print("Change places with an opponent.")    # Testing text.
+    cardMessage = "Move forward 11 OR change places with an opponent."
 
 class tenCard:
-    def option1():
-        # Option 1: Move forward 10.
-        print("Move forward 10.")   # Testing text.
-    def option2():
-        # Option 2: Move backward 1.
-        print("Move backward 1.")   # Testing text.
+    cardMessage = "Move forward 10 OR move backward 1."
 
 class eightCard:
-    def option1():
-        # Option 1: Move forward 8.
-        print("Move forward 8.")    # Testing text.
+    cardMessage = "Move forward 8."
 
 class sevenCard:
-    def option1():
-        # Option 1: Move forward 7.
-        print("Move forward 7.")    # Testing text.
-    def option2():
-        # Option 2: Split the move between two of your pawns.
-        print("Split the move between two of your pawns.")  # Testing text.
+    cardMessage = "Move forward 7 OR split the move between two of \
+your pawns."
 
 class fiveCard:
-    def option1():
-        # option 1: Move forward 5.
-        print("Move forward 5.")    # Testing text.
+    cardMessage = "Move forward 5."
 
 class fourCard:
-    def option1():
-        # Option 1: Move backward 4.
-        print("Move backward 4.")   # Testing text.
+    cardMessage = "Move backward 4."
 
 class threeCard:
-    def option1():
-        # option 1: Move forward 3.
-        print("Move forward 3.")    # Testing text.
+    cardMessage = "Move forward 3."
 
 class twoCard:
-    def option1():
-        # option 1: Move forward 2.
-        print("Move forward 2.")    # Testing text.
+    cardMessage = "Move forward 2."
 
 class oneCard:
-    def option1():
-        # option 1: Move forward 1.
-        print("Move forward 1.")    # Testing text.
+    cardMessage = "Move forward 1."
+
+
+def testCardMethod():
+    testCard = sorryCard()
+    print(testCard.cardMessage)
+
+#testCardMethod()

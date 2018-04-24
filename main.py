@@ -10,8 +10,7 @@ class main:
 
         self.boardInstance = board.board(playerColorChoice, enemyPlayerCount)
 
-testUserColor = "green"
+testUserColor = "red"
 testEnemyCount = 3
-programInstance = main(testUserColor, testEnemyCount)
 
-print(programInstance.boardInstance.userPlayer.playerColor)
+programInstance = main(testUserColor, testEnemyCount)

@@ -8,24 +8,84 @@ import player
 
 class board:
 
-    def __init__(self, playerColorChoice, enemyPlayerCount):
+    # Note: sample parameters for constructor:
+    # sampleBoard("red", 3, True, False, True, True)
+    # This indicates that the user player is red, the first computer player is
+    # skilled and nice, and the second computer player is skilled and mean.
+
+    def __init__(self, playerColorChoice, enemyPlayerCount, comp1Skill = None, comp1Disp = None, comp2Skill = None, comp2Disp = None, comp3Skill = None, comp3Disp = None):
         
         colorChoiceList = ["green", "yellow", "blue", "red"]
         self.userPlayer = player.player(playerColorChoice)
+        self.userPlayer.setUserPlayerFlag()
         colorChoiceList.remove(playerColorChoice)
         self.totalPlayerCount = enemyPlayerCount + 1
-            
+
+        # This hefty section sets the skill and disposition flags for individual
+        # computer players based on the boolean input values in the constructor.
+        
         if enemyPlayerCount == 3:
             self.compPlayer1 = player.player(colorChoiceList.pop())
+            if comp1Skill == True and comp1Disp == True:
+                self.compPlayer1.setSmartMeanCompFlag()
+            elif comp1Skill == True and comp1Disp == False:
+                self.compPlayer1.setSmartNiceCompFlag()
+            elif comp1Skill == False and comp1Disp == True:
+                self.compPlayer1.setDumbMeanCompFlag()
+            else:
+                self.compPlayer1.setDumbNiceCompFlag()
+                
             self.compPlayer2 = player.player(colorChoiceList.pop())
+            if comp2Skill == True and comp2Disp == True:
+                self.compPlayer2.setSmartMeanCompFlag()
+            elif comp2Skill == True and comp2Disp == False:
+                self.compPlayer2.setSmartNiceCompFlag()
+            elif comp2Skill == False and comp2Disp == True:
+                self.compPlayer2.setDumbMeanCompFlag()
+            else:
+                self.compPlayer2.setDumbNiceCompFlag()
+            
             self.compPlayer3 = player.player(colorChoiceList.pop())
+            if comp3Skill == True and comp3Disp == True:
+                self.compPlayer3.setSmartMeanCompFlag()
+            elif comp3Skill == True and comp3Disp == False:
+                self.compPlayer3.setSmartNiceCompFlag()
+            elif comp3Skill == False and comp3Disp == True:
+                self.compPlayer3.setDumbMeanCompFlag()
+            else:
+                self.compPlayer3.setDumbNiceCompFlag()
 
         elif enemyPlayerCount == 2:
             self.compPlayer1 = player.player(colorChoiceList.pop())
+            if comp1Skill == True and comp1Disp == True:
+                self.compPlayer1.setSmartMeanCompFlag()
+            elif comp1Skill == True and comp1Disp == False:
+                self.compPlayer1.setSmartNiceCompFlag()
+            elif comp1Skill == False and comp1Disp == True:
+                self.compPlayer1.setDumbMeanCompFlag()
+            else:
+                self.compPlayer1.setDumbNiceCompFlag()
+                
             self.compPlayer2 = player.player(colorChoiceList.pop())
+            if comp2Skill == True and comp2Disp == True:
+                self.compPlayer2.setSmartMeanCompFlag()
+            elif comp2Skill == True and comp2Disp == False:
+                self.compPlayer2.setSmartNiceCompFlag()
+            elif comp2Skill == False and comp2Disp == True:
+                self.compPlayer2.setDumbMeanCompFlag()
+            else:
+                self.compPlayer2.setDumbNiceCompFlag()
 
         elif enemyPlayerCount == 1:
             self.compPlayer1 = player.player(colorChoiceList.pop())
+            if comp1Skill == True and comp1Disp == True:
+                self.compPlayer1.setSmartMeanCompFlag()
+            elif comp1Skill == True and comp1Disp == False:
+                self.compPlayer1.setSmartNiceCompFlag()
+            elif comp1Skill == False and comp1Disp == True:
+                self.compPlayer1.setDumbMeanCompFlag()
+            else:
+                self.compPlayer1.setDumbNiceCompFlag()
             
         # The common square list represents all 60 of the common white squares
         # of the board all of the individual pawns may occupy. There are also
@@ -210,26 +270,59 @@ class board:
             self.occupBool = False
             self.occupyingPawn = None
 
-testBoard = board("red", 3)
-print("Red and Green initial pawnList[0] values:")
-print("Red: ", end = '')
-print(testBoard.userPlayer.pawnList[0].score)
-print("Green: ", end = '')
-print(testBoard.compPlayer3.pawnList[0].score)
-print("Red and Green values after green moves 28:")
-testBoard.movePawn(testBoard.compPlayer3.pawnList[0], 28)
-print("Red: ", end = '')
-print(testBoard.userPlayer.pawnList[0].score)
-print("Green: ", end = '')
-print(testBoard.compPlayer3.pawnList[0].score)
-print("Red and Green values after red moves 13:")
-testBoard.movePawn(testBoard.userPlayer.pawnList[0], 13)
-print("Red: ", end = '')
-print(testBoard.userPlayer.pawnList[0].score)
-print("Green: ", end = '')
-print(testBoard.compPlayer3.pawnList[0].score)
-print("Ending Red and Green total pawn scores:")
-print("Red: ", end = '')
-print(testBoard.userPlayer.pawnScores)
-print("Green: ", end = '')
-print(testBoard.compPlayer3.pawnScores)
+    # This section will deal with moves based on whether the player in question
+    # is a user player or a computer player. The computer player's moves will
+    # be determined based on whether they are smart, mean, or otherwise.
+    def chooseMove(self):
+        option1bool = False
+        option2bool = False
+
+def testBooleans():
+    testBoard = board("red", 3, True, False, True, True, False, False)
+    print(testBoard.compPlayer1.smartBool)
+    print(testBoard.compPlayer1.meanBool)
+    print(testBoard.compPlayer2.smartBool)
+    print(testBoard.compPlayer2.meanBool)
+    print(testBoard.compPlayer3.smartBool)
+    print(testBoard.compPlayer3.meanBool)
+
+#testBooleans()
+        
+def chooseMoveTest():
+    testBoard = board("red", 3)
+    print("success")
+
+#chooseMoveTest()
+            
+def slideTest():
+    testBoard = board("red", 3)
+    print("Red and Green initial pawnList[0] values:")
+    print("Red: ", end = '')
+    print(testBoard.userPlayer.pawnList[0].score)
+    print("Green: ", end = '')
+    print(testBoard.compPlayer3.pawnList[0].score)
+    print("Red and Green values after green moves 28:")
+    testBoard.movePawn(testBoard.compPlayer3.pawnList[0], 28)
+    print("Red: ", end = '')
+    print(testBoard.userPlayer.pawnList[0].score)
+    print("Green: ", end = '')
+    print(testBoard.compPlayer3.pawnList[0].score)
+    print("Red and Green values after red moves 13:")
+    testBoard.movePawn(testBoard.userPlayer.pawnList[0], 13)
+    print("Red: ", end = '')
+    print(testBoard.userPlayer.pawnList[0].score)
+    print("Green: ", end = '')
+    print(testBoard.compPlayer3.pawnList[0].score)
+    print("Ending Red and Green total pawn scores:")
+    print("Red: ", end = '')
+    print(testBoard.userPlayer.pawnScores)
+    print("Green: ", end = '')
+    print(testBoard.compPlayer3.pawnScores)
+
+#slideTest()
+
+def drawTest():
+    testBoard = board("red", 3)
+    print(testBoard.cardDeck.draw(testBoard.cardDeck.cardStack).cardMessage)
+
+#drawTest()
