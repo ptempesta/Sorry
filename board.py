@@ -107,6 +107,18 @@ class board:
                     self.insertPawn(targetIndex, chosenPawn, moveDistance)
                     self.removePawnGentle(previousPawnIndex)
 
+        # This section of the move method will cause a pawn to "slide" if it
+        # lands on a valid sliding square. This is essentially a one-time
+        # recursive call of the movePawn function.
+
+        # 3 square slide:
+        if chosenPawn.score == 13 or chosenPawn.score == 28 or chosenPawn.score == 43:
+            self.movePawn(chosenPawn, 3)
+
+        # 4 square slide:
+        elif chosenPawn.score == 21 or chosenPawn.score == 36 or chosenPawn.score == 51:
+            self.movePawn(chosenPawn, 4)
+
         # This part of the move method ensures the player scores are kept up
         # to date at the end of every move.
         self.updatePlayerScores()
@@ -197,3 +209,27 @@ class board:
         def removePawn(self):
             self.occupBool = False
             self.occupyingPawn = None
+
+testBoard = board("red", 3)
+print("Red and Green initial pawnList[0] values:")
+print("Red: ", end = '')
+print(testBoard.userPlayer.pawnList[0].score)
+print("Green: ", end = '')
+print(testBoard.compPlayer3.pawnList[0].score)
+print("Red and Green values after green moves 28:")
+testBoard.movePawn(testBoard.compPlayer3.pawnList[0], 28)
+print("Red: ", end = '')
+print(testBoard.userPlayer.pawnList[0].score)
+print("Green: ", end = '')
+print(testBoard.compPlayer3.pawnList[0].score)
+print("Red and Green values after red moves 13:")
+testBoard.movePawn(testBoard.userPlayer.pawnList[0], 13)
+print("Red: ", end = '')
+print(testBoard.userPlayer.pawnList[0].score)
+print("Green: ", end = '')
+print(testBoard.compPlayer3.pawnList[0].score)
+print("Ending Red and Green total pawn scores:")
+print("Red: ", end = '')
+print(testBoard.userPlayer.pawnScores)
+print("Green: ", end = '')
+print(testBoard.compPlayer3.pawnScores)
