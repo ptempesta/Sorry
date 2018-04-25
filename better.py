@@ -1,6 +1,8 @@
 # from Tkinter import *
+# import play_screen
 import Tkinter as tk
-import play_screen
+import SorryGui_copy as play_screen
+
 
 
 class MainApplication(tk.Frame):
@@ -18,11 +20,15 @@ class welcome_page(tk.Frame):
         self.start_fm = tk.Frame(self, height=450, width=450)
         self.start_fm.pack()
 
+        self.title = tk.Label(self.start_fm, text="Sorry!", width=8, height=2, font=("ms serif", 40, "italic"))
         self.start_btn = tk.Button(self.start_fm, text="Start a New Game", width=30, command=self.new_game)
         self.resume_btn = tk.Button(self.start_fm, text="Resume a Saved Game", width=30, command=self.resume_game)
+        self.stats_btn = tk.Button(self.start_fm, text="View Game History", width=30, command=self.stats)
 
+        self.title.pack()
         self.start_btn.pack()
         self.resume_btn.pack()
+        self.stats_btn.pack()
 
     def resume_game(self):
         self.start_fm.pack_forget()
@@ -32,7 +38,13 @@ class welcome_page(tk.Frame):
         self.start_fm.pack_forget()
         self.master.title("New Game")
         self.user_page = user_page()
-        self.user_page.pack()
+        self.user_page.grid(row=0)
+
+    def stats(self):
+        self.start_fm.pack_forget()
+        self.master.title("Game History")
+        # self.return_btn = tk.Button(self.start_fm, text="Return", width=30)
+        # self.return_btn.pack()
 
 
 class user_page(tk.Frame):
@@ -42,6 +54,9 @@ class user_page(tk.Frame):
         self.name = tk.Frame(self, height=450, width=450)
         self.name.grid_propagate(0)
         self.name.grid(row=0)
+
+        self.title = tk.Label(self.name, text="Welcome!", width=8, height=2, font = ("ms serif", 30, "italic"))
+        self.title.grid(row=0)
 
         self.name_label = tk.Label(self.name, text="Enter your name:  ", font=("ms serif", 14))
         global name_box
@@ -62,42 +77,53 @@ class user_page(tk.Frame):
         self.opponent2 = tk.Radiobutton(self.name, text="2", variable=num_opponent, value=2)
         self.opponent3 = tk.Radiobutton(self.name, text="3", variable=num_opponent, value=3)
 
-        self.name_label.grid(row=0, column=0, columnspan=2, sticky='W')
-        name_box.grid(row=0, column=2, columnspan=2)
-        self.color_label.grid(row=1, column=0, columnspan=2, sticky='W')
-        self.color_choice_r.grid(row=1, column=2)
-        self.color_choice_b.grid(row=1, column=3)
-        self.color_choice_y.grid(row=1, column=4)
-        self.color_choice_g.grid(row=1, column=5)
-        self.opponent_label.grid(row=2, column=0, columnspan=2, sticky='W')
-        self.opponent1.grid(row=2, column=2)
-        self.opponent2.grid(row=2, column=3)
-        self.opponent3.grid(row=2, column=4)
+        self.name_label.grid(row=1, column=0, columnspan=2, sticky='W')
+        name_box.grid(row=1, column=2, columnspan=2)
+
+        self.color_label.grid(row=2, column=0, columnspan=2, sticky='W')
+        self.color_choice_r.grid(row=2, column=2)
+        self.color_choice_b.grid(row=2, column=3)
+        self.color_choice_y.grid(row=2, column=4)
+        self.color_choice_g.grid(row=2, column=5)
+
+        self.opponent_label.grid(row=3, column=0, columnspan=2, sticky='W')
+        self.opponent1.grid(row=3, column=2)
+        self.opponent2.grid(row=3, column=3)
+        self.opponent3.grid(row=3, column=4)
 
         self.next_cust_btn = tk.Button(self.name, text="Next", command=lambda: self.next_customize_page())
-        self.next_cust_btn.grid(row=3)
+        self.next_cust_btn.grid(row=4, column=3, pady=10)
 
     def next_customize_page(self):
-        self.name.pack_forget()
+        self.name.grid_forget()
         self.master.title("Customize")
         self.customize_page = customize_page()
-        self.customize_page.grid()
+        self.customize_page.grid(row=0)
 
 
 class customize_page(tk.Frame):
     def __init__(self):
         tk.Frame.__init__(self)
-        # self.user = user
 
-        self.player1 = tk.Frame(self, bg="lightcoral", width=450, height=80)
-        self.player2 = tk.Frame(self, bg="SkyBlue1", width=450, height=80)
-        self.player3 = tk.Frame(self, bg="pale green", width=450, height=80)
+        self.title_fm = tk.Frame(self, width=450, height=80)
+        self.title_fm.grid_propagate(0)
+        self.title_fm.grid(row=0)
 
+        self.player1 = tk.Frame(self, width=450, height=80)
+        self.player2 = tk.Frame(self, width=450, height=80)
+        self.player3 = tk.Frame(self, width=450, height=80)
         self.player1.grid_propagate(0)
         self.player2.grid_propagate(0)
         self.player3.grid_propagate(0)
 
+        # title
+        self.title = tk.Label(self.title_fm, text="Customize Opponents", font = ("ms serif", 30, "italic"))
+        self.title.grid(row=0, column=0, rowspan=2, columnspan=4)
+
         # player 1
+        self.name1 = tk.Label(self.player1, text="Player 1")
+        self.name1.grid(row=0, column=0)
+
         self.skill_r = tk.IntVar()
         self.mean_r = tk.IntVar()
 
@@ -112,6 +138,9 @@ class customize_page(tk.Frame):
         self.r6_r.grid(row=1, column=2, sticky='W')
 
         # player 2
+        self.name2 = tk.Label(self.player2, text="Player 2")
+        self.name2.grid(row=0, column=0)
+
         self.skill_b = tk.IntVar()
         self.mean_b = tk.IntVar()
 
@@ -126,6 +155,9 @@ class customize_page(tk.Frame):
         self.r6_b.grid(row=1, column=2, sticky='W')
 
         # player 3
+        self.name3 = tk.Label(self.player3, text="Player 3")
+        self.name3.grid(row=0, column=0)
+
         self.skill_g = tk.IntVar()
         self.mean_g = tk.IntVar()
 
@@ -144,10 +176,10 @@ class customize_page(tk.Frame):
 
         self.oppo_list = [self.player1, self.player2, self.player3]
         for i in range(self.num_oppo):
-            (self.oppo_list)[i].grid(row=i)
+            (self.oppo_list)[i].grid(row=(i+1))
 
         self.btn_fm = tk.Frame(self, width=450, height=80)
-        self.btn_fm.grid(row=self.num_oppo + 1)
+        self.btn_fm.grid(row=self.num_oppo + 2)
 
         self.start_btn = tk.Button(self.btn_fm, text="Next", command=lambda: self.show_board())
         self.start_btn.grid(row=0)
@@ -155,7 +187,7 @@ class customize_page(tk.Frame):
     def show_board(self):
         self.master.destroy()
 
-        play_screen.create_screen(user_color.get(),
+        play_screen.create_all(user_color.get(),
                                   num_opponent.get(),
                                   bool(self.skill_r.get() - 1),
                                   bool(self.mean_r.get() - 1),
