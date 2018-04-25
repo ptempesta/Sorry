@@ -8,11 +8,15 @@ import card
 # Peter Tempesta, 4/4/2018
 
 class deck:
-    cardStack = []
+
+    def __init__(self):
+        
+        self.cardStack = []
+        
     # The draw method will pop one card off from the end of the list, as if a
     # card was drawn from the deck and discarded. However, if there are no cards
     # left in the list, the list will be repopulated with cards and shuffled.
-    def draw(cardStack):
+    def draw(self, cardStack):
         if len(cardStack) == 0:
             for i in range(0,4):
                 cardStack.append(card.sorryCard)
@@ -31,3 +35,9 @@ class deck:
             return cardStack.pop()
         else:
             return cardStack.pop()
+
+def testMethod():
+    testDeck = deck()
+    print(testDeck.draw(testDeck.cardStack))
+
+#testMethod()
