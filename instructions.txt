@@ -1,26 +1,26 @@
-Overview:\n\n
+Overview:
 
-The Sorry! board game is centered around players\n
-moving small game pieces called "pawns" out of\n
-their personal starting zone, around the board,\n
-and into their personal ending zone. When all of\n
-a player's pawns reach their ending zone\n
-corresponding to their color, that player wins.\n
-The different players are denoted by color, and\n
-pawns of different colors may knock opposing\n
-pawns back to their starting zone by landing on\n
-their same square. Pawns may also slide across\n
-squares if they fall on a particular square.\n
-Pawns of the same color may not occupy the same\n
-space unless the space is the starting zone or\n
-ending zone.\n\n
+The Sorry! board game is centered around players
+moving small game pieces called "pawns" out of
+their personal starting zone, around the board,
+and into their personal ending zone. When all of
+a player's pawns reach their ending zone
+corresponding to their color, that player wins.
+The different players are denoted by color, and
+pawns of different colors may knock opposing
+pawns back to their starting zone by landing on
+their same square. Pawns may also slide across
+squares if they fall on a particular square.
+Pawns of the same color may not occupy the same
+space unless the space is the starting zone or
+ending zone.
 
-How to Play:\n\n
+How to Play:
 
-When it is your turn to move, simply click on the\n
-appropriate button to draw a card from the deck.\n
-This button will be located to the right of the\n
-screen and will be labeled appropriately.\n
+When it is your turn to move, simply click on the
+appropriate button to draw a card from the deck.
+This button will be located to the right of the
+screen and will be labeled appropriately.
 
 After drawing a card in this way, read the text
 instructions for the card drawn, click on one
