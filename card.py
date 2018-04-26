@@ -1,6 +1,7 @@
 # The following set of classes simulate the individual card types for the Sorry!
-# board game. Several of the card types have multiple movement options to choose
-# from, and all card types follow the same general method option format.
+# board game. Each of the cards has a field titled cardMessage which is a string
+# denoting the effect of the card. The actual card effects are coded into the
+# board class.
 
 # Peter Tempesta, 4/4/2018
 
@@ -41,9 +42,8 @@ class twoCard:
 class oneCard:
     cardMessage = "Move forward 1."
 
-
+# A simple test method.
 def testCardMethod():
     testCard = sorryCard()
     print(testCard.cardMessage)
-
 #testCardMethod()

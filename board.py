@@ -537,6 +537,10 @@ class board:
             else:
                 self.movePawn(leastValuablePawn, cardMoveValue)
 
+# These methods are all test methods used while constructing
+# the code. They are meant to test the above methods which are
+# similarly named to below test methods.
+
 def testDrawAndMovePlayer():
     testBoard = board("red", 3, True, True, True, True, True, True)
     print("Red, Blue, Yellow, Green: 10, 20, 30, 40")
@@ -554,7 +558,6 @@ def testDrawAndMovePlayer():
     print(testBoard.compPlayer1.pawnList[0].commonBoardPosition)
     print(testBoard.compPlayer2.pawnList[0].commonBoardPosition)
     print(testBoard.compPlayer3.pawnList[0].commonBoardPosition)
-
 #testDrawAndMovePlayer()
 
 def testDrawAndMove():
@@ -598,11 +601,9 @@ def testDrawAndMove():
     print(testBoard.compPlayer1.pawnList[0].commonBoardPosition)
     print(testBoard.compPlayer2.pawnList[0].commonBoardPosition)
     print(testBoard.compPlayer3.pawnList[0].commonBoardPosition)
-
     print(testBoard.tempMostValuablePawn)
     print(testBoard.tempMiddleValuablePawn)
     print(testBoard.tempLeastValuablePawn)
-    
 #testDrawAndMove()
 
 def testBooleans():
@@ -613,7 +614,6 @@ def testBooleans():
     print(testBoard.compPlayer2.meanBool)
     print(testBoard.compPlayer3.smartBool)
     print(testBoard.compPlayer3.meanBool)
-
 #testBooleans()
             
 def slideTest():
@@ -640,11 +640,9 @@ def slideTest():
     print(testBoard.userPlayer.pawnScores)
     print("Green: ", end = '')
     print(testBoard.compPlayer3.pawnScores)
-
 #slideTest()
 
 def drawTest():
     testBoard = board("red", 3)
     print(testBoard.cardDeck.draw(testBoard.cardDeck.cardStack).cardMessage)
-
 #drawTest()
