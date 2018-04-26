@@ -15,7 +15,7 @@ class player:
             self.pawnScores.append(0)
 
     # This method is used to ensure that the positions and pawns of all players
-    # are kept updated elsewhere in the code.
+    # are kept up to date elsewhere in the code.
     
     def updatePawnScores(self):
         self.pawnScores = []
@@ -50,10 +50,10 @@ class player:
         self.smartBool = False
         self.meanBool = False
 
+# A simple testing method.
 def testBools():
     testPlayer = player("red")
     testPlayer.setUserPlayerFlag()
     print(testPlayer.userPlayerBool)
-
 #testBools()
         

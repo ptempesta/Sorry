@@ -36,8 +36,8 @@ class deck:
         else:
             return cardStack.pop()
 
+# A simple test method.
 def testMethod():
     testDeck = deck()
     print(testDeck.draw(testDeck.cardStack))
-
 #testMethod()
