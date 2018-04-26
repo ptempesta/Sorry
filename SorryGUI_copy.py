@@ -168,8 +168,6 @@ def create_screen(sorry_board):
         card_message =  sorry_board.cardDeck.draw(sorry_board.cardDeck.cardStack).cardMessage
         b1.text = card_message
         b1.config(text = card_message)
-        drawnCard = sorry_board.cardDeck.draw(sorry_board.cardDeck.cardStack)
-        print(drawnCard)
         
 
     label1 = Label(outsideright, text=message)
