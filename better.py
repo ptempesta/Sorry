@@ -54,7 +54,12 @@ class welcome_page(tk.Frame):
 
     def resume_game(self):
         self.start_fm.pack_forget()
-        self.master.title("Resuming the Saved Game")
+
+        self.file = open("resume.txt", "r")
+        data = self.file.read().split(',')
+        self.file.close()
+        play_screen.create_all(x for x in data)
+
 
     def new_game(self):
         self.start_fm.pack_forget()
