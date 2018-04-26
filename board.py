@@ -151,7 +151,7 @@ class board:
                 previousPawnIndex = chosenPawn.score - 60
             if chosenPawn.score + moveDistance > 59 and chosenPawn.score + moveDistance <= 65:
                 if chosenPawn.score + moveDistance < 65:
-                    self.placePawnOnRamp(chosenPawn, moveDistance)##
+                    self.placePawnOnRamp(chosenPawn, moveDistance)
                 elif chosenPawn.score + moveDistance == 65:
                     self.placePawnInEndZone(chosenPawn, moveDistance)
             elif chosenPawn.score + moveDistance <= 59:                
@@ -270,12 +270,176 @@ class board:
             self.occupBool = False
             self.occupyingPawn = None
 
-    # This section will deal with moves based on whether the player in question
-    # is a user player or a computer player. The computer player's moves will
-    # be determined based on whether they are smart, mean, or otherwise.
-    def chooseMove(self):
-        option1bool = False
-        option2bool = False
+    # This method will implement the draw method for the deck class and will
+    # cause a player to move based on the drawn card.
+    def drawAndMove(self, player):
+
+        drawnCard = self.cardDeck.draw(self.cardDeck.cardStack)
+        print(drawnCard)
+
+        # This section will calculate a player's most and least valuable pawns
+        # by score.
+
+        tempPawnScoresList = []
+
+        tempPawnScoresList.append(player.pawnList[0].score)
+        tempPawnScoresList.append(player.pawnList[1].score)
+        tempPawnScoresList.append(player.pawnList[2].score)
+        tempPawnScoresList.sort()
+        
+        mostValuablePawnScore = tempPawnScoresList.pop()
+        middleValuablePawnScore = tempPawnScoresList.pop()
+        leastValuablePawnScore = tempPawnScoresList.pop()
+
+        mostValuablePawn = None
+        middleValuablePawn = None
+        leastValuablePawn = None
+
+        if player.pawnList[0].score == mostValuablePawnScore != 65:
+            mostValuablePawn = player.pawnList[0]
+        elif player.pawnList[1].score == mostValuablePawnScore != 65:
+            mostValuablePawn = player.pawnList[1]
+        elif player.pawnList[2].score == mostValuablePawnScore != 65:
+            mostValuablePawn = player.pawnList[2]
+
+        if player.pawnList[0].score == middleValuablePawnScore != 65:
+            middleValuablePawn = player.pawnList[0]
+        elif player.pawnList[1].score == middleValuablePawnScore != 65:
+            middleValuablePawn = player.pawnList[1]
+        elif player.pawnList[2].score == middleValuablePawnScore != 65:
+            middleValuablePawn = player.pawnList[2]
+
+        if player.pawnList[0].score == leastValuablePawnScore != 65:
+            leastValuablePawn = player.pawnList[0]
+        elif player.pawnList[1].score == leastValuablePawnScore != 65:
+            leastValuablePawn = player.pawnList[1]
+        elif player.pawnList[2].score == leastValuablePawnScore != 65:
+            leastValuablePawn = player.pawnList[2]
+
+        # This section sets the below booleans based on the player conducting
+        # the move. The user player will choose their own move, while the rules
+        # for computer players are as follows:
+
+        # Smart + Mean => Mean Move
+        # Smart + Nice => Smart Move
+        # Dumb + Mean => Mean Move
+        # Dumb + Nice => Dumb Move
+
+        userOption = False
+        meanOption = False
+        smartOption = False
+        
+        if player.userPlayerBool == True:
+            userOption = True
+        elif player.smartBool == True and player.meanBool == True:
+            meanOption = True
+            smartOption = True
+        elif player.smartBool == True and player.meanBool == False:
+            meanOption = False
+            smartOption = True
+        elif player.smartBool == False and player.meanBool == True:
+            meanOption = True
+            smartOption = False
+        elif player.smartBool == False and player.meanBool == False:
+            meanOption = False
+            smartOption = False
+
+        if drawnCard == deck.card.sorryCard:
+            if meanOption == True:
+                print("Sorry!")
+            else:
+                cardMoveValue = 4
+                if smartOption == True:
+                    self.movePawn(mostValuablePawn, cardMoveValue)
+                else:
+                    self.movePawn(leastValuablePawn, cardMoveValue)
+                    
+        elif drawnCard == deck.card.twelveCard:
+            cardMoveValue = 12
+            if smartOption == True:
+                self.movePawn(mostValuablePawn, cardMoveValue)
+            else:
+                self.movePawn(leastValuablePawn, cardMoveValue)
+                    
+        elif drawnCard == deck.card.elevenCard:
+            if meanOption == True:
+                print("Change places with an opponent.")
+            else:
+                cardMoveValue = 11
+                if smartOption == True:
+                    self.movePawn(mostValuablePawn, cardMoveValue)
+                else:
+                    self.movePawn(leastValuablePawn, cardMoveValue)
+                    
+        elif drawnCard == deck.card.tenCard:
+            if smartOption == True:
+                cardMoveValue = 10
+                if smartOption == True:
+                    self.movePawn(mostValuablePawn, cardMoveValue)
+                else:
+                    self.movePawn(leastValuablePawn, cardMoveValue)
+            else:
+                cardMoveValue = -1
+                if smartOption == True:
+                    self.movePawn(mostValuablePawn, cardMoveValue)
+                else:
+                    self.movePawn(leastValuablePawn, cardMoveValue)
+                    
+        elif drawnCard == deck.card.eightCard:
+            cardMoveValue = 8
+            if smartOption == True:
+                self.movePawn(mostValuablePawn, cardMoveValue)
+            else:
+                self.movePawn(leastValuablePawn, cardMoveValue)
+                    
+        elif drawnCard == deck.card.sevenCard: # We may not get to implementing
+            cardMoveValue = 7                  # this card correctly.
+            if smartOption == True:
+                self.movePawn(mostValuablePawn, cardMoveValue)
+            else:
+                self.movePawn(leastValuablePawn, cardMoveValue)
+                
+        elif drawnCard == deck.card.fiveCard:
+            cardMoveValue = 5
+            if smartOption == True:
+                self.movePawn(mostValuablePawn, cardMoveValue)
+            else:
+                self.movePawn(leastValuablePawn, cardMoveValue)
+                
+        elif drawnCard == deck.card.fourCard:
+            cardMoveValue = -4
+            if smartOption == True:
+                self.movePawn(mostValuablePawn, cardMoveValue)
+            else:
+                self.movePawn(leastValuablePawn, cardMoveValue)
+                
+        elif drawnCard == deck.card.threeCard:
+            cardMoveValue = 3
+            if smartOption == True:
+                self.movePawn(mostValuablePawn, cardMoveValue)
+            else:
+                self.movePawn(leastValuablePawn, cardMoveValue)
+                
+        elif drawnCard == deck.card.twoCard:
+            cardMoveValue = 2
+            if smartOption == True:
+                self.movePawn(mostValuablePawn, cardMoveValue)
+            else:
+                self.movePawn(leastValuablePawn, cardMoveValue)
+                
+        elif drawnCard == deck.card.oneCard:
+            cardMoveValue = 1
+            if smartOption == True:
+                self.movePawn(mostValuablePawn, cardMoveValue)
+            else:
+                self.movePawn(leastValuablePawn, cardMoveValue)
+
+def testDrawAndMove():
+    testBoard = board("red", 3, True, False, True, True, False, False)
+    testBoard.drawAndMove(testBoard.compPlayer2)
+    print(testBoard.compPlayer2.pawnScores)
+
+testDrawAndMove()
 
 def testBooleans():
     testBoard = board("red", 3, True, False, True, True, False, False)
@@ -287,12 +451,6 @@ def testBooleans():
     print(testBoard.compPlayer3.meanBool)
 
 #testBooleans()
-        
-def chooseMoveTest():
-    testBoard = board("red", 3)
-    print("success")
-
-#chooseMoveTest()
             
 def slideTest():
     testBoard = board("red", 3)
