@@ -120,10 +120,12 @@ class summary_table(Frame):
         for record in std:
             self.tv2.insert('', 'end', text=record[0], values=(record[1]))
 
-
-if __name__ == '__main__':
+def main():
     root = Tk()
     root.resizable(width=False, height=False)
     MainApplication(root).grid()
     root.title("Game History")
     root.mainloop()
+
+if __name__ == '__main__':
+    main()
