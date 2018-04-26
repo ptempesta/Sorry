@@ -1,8 +1,8 @@
 # from Tkinter import *
 # import play_screen
 import Tkinter as tk
-import SorryGui_copy as play_screen
-
+# import SorryGui_copy as play_screen
+import game_history
 
 
 class MainApplication(tk.Frame):
@@ -36,21 +36,18 @@ class welcome_page(tk.Frame):
 
     def new_game(self):
         self.start_fm.pack_forget()
-        self.master.title("New Game")
+
         self.user_page = user_page()
         self.user_page.grid(row=0)
 
     def stats(self):
-        self.start_fm.pack_forget()
-        self.master.title("Game History")
-        # self.return_btn = tk.Button(self.start_fm, text="Return", width=30)
-        # self.return_btn.pack()
+        self.history = game_history.main()
 
 
 class user_page(tk.Frame):
     def __init__(self):
         tk.Frame.__init__(self)
-
+        self.master.title("New Game")
         self.name = tk.Frame(self, height=450, width=450)
         self.name.grid_propagate(0)
         self.name.grid(row=0)
