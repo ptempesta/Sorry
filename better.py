@@ -24,12 +24,36 @@ class welcome_page(tk.Frame):
         self.title = tk.Label(self.start_fm, text="Sorry!", width=8, height=2, font=("ms serif", 40, "italic"))
         self.start_btn = tk.Button(self.start_fm, text="Start a New Game", width=30, command=self.new_game)
         self.resume_btn = tk.Button(self.start_fm, text="Resume a Saved Game", width=30, command=self.resume_game)
+        self.instruction_btn = tk.Button(self.start_fm, text="Instruction", width=30, command=self.instruction)
         self.stats_btn = tk.Button(self.start_fm, text="View Game History", width=30, command=self.stats)
 
         self.title.pack()
         self.start_btn.pack()
         self.resume_btn.pack()
+        self.instruction_btn.pack()
         self.stats_btn.pack()
+
+    def instruction(self):
+        self.new_window = tk.Toplevel(self)
+        self.new_window.title("Instructions")
+
+        self.inst_fm = tk.Frame(self.new_window, height=450, width=450)
+        self.inst_fm.pack()
+
+        self.inst_fm.grid_propagate(0)
+        # implement stretchability
+        self.inst_fm.grid_rowconfigure(0, weight=1)
+        self.inst_fm.grid_columnconfigure(0, weight=1)
+
+        self.file = open("instructions.txt", "r")
+        # self.file.read()
+
+
+        self.inst = tk.Text(self.inst_fm)
+
+        self.inst.insert(tk.INSERT, self.file.read())
+        self.inst.grid(row=0, column=0, sticky="nsew", padx=2, pady=2)
+        self.file.close()
 
     def resume_game(self):
         self.start_fm.pack_forget()
