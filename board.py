@@ -14,6 +14,10 @@ class board:
     # skilled and nice, and the second computer player is skilled and mean.
 
     def __init__(self, playerColorChoice, enemyPlayerCount, comp1Skill = None, comp1Disp = None, comp2Skill = None, comp2Disp = None, comp3Skill = None, comp3Disp = None):
+
+        tempMostValuablePawn = None     # These pawns are declared here. The purpose of these pawn references
+        tempMiddleValuablePawn = None   # is for integration with the GUI. After each call of the computer's
+        tempLeastValuablePawn = None    # drawAndMove method, these values are updated accordingly.
         
         colorChoiceList = ["green", "yellow", "blue", "red"]
         self.userPlayer = player.player(playerColorChoice)
@@ -270,12 +274,73 @@ class board:
             self.occupBool = False
             self.occupyingPawn = None
 
+    # This is the version of the drawAndMove method for the user. It is very
+    # similar to the drawAndMove method which only the computer players should use.
+    def drawAndMovePlayer(self, userPawn, compPawn, backwardBool = False):
+
+        drawnCard = self.cardDeck.draw(self.cardDeck.cardStack)
+        
+        if drawnCard == deck.card.sorryCard:
+            if userPawn.score == 0 and 0 < compPawn.commonBoardPosition < 60:
+                targetBoardPos = compPawn.commonBoardPosition
+                moveVal = targetBoardPos - userPawn.colorCommonOffset
+                if moveVal < 0:
+                    moveVal += 60
+                self.movePawn(userPawn, moveVal)
+            else:
+                self.movePawn(userPawn, 4)
+                    
+        elif drawnCard == deck.card.twelveCard:
+            self.movePawn(userPawn, 12)
+
+        # Note: in the replacement option for the eleven card, that is the option in which a player
+        # swaps positions with the pawn of another player, for the player we simply use the Sorry!
+        # card effect, or move 11. This is essentially another Sorry! card for the player.
+        if drawnCard == deck.card.elevenCard:
+            if userPawn.score == 0 and 0 < compPawn.commonBoardPosition < 60:
+                targetBoardPos = compPawn.commonBoardPosition
+                moveVal = targetBoardPos - userPawn.colorCommonOffset
+                if moveVal < 0:
+                    moveVal += 60
+                self.movePawn(userPawn, moveVal)
+            else:
+                self.movePawn(userPawn, 11)
+                    
+        elif drawnCard == deck.card.tenCard:
+            if backwardBool == False:
+                self.movePawn(userPawn, 10)
+            else:
+                self.movePawn(userPawn, -1)
+                    
+        elif drawnCard == deck.card.eightCard:
+            self.movePawn(userPawn, 8)
+                    
+        elif drawnCard == deck.card.sevenCard: # We may not get to implementing
+            self.movePawn(userPawn, 7)         # this card correctly.
+                
+        elif drawnCard == deck.card.fiveCard:
+            self.movePawn(userPawn, 5)
+                
+        elif drawnCard == deck.card.fourCard:
+            self.movePawn(userPawn, -4)
+                
+        elif drawnCard == deck.card.threeCard:
+            self.movePawn(userPawn, 3)
+                
+        elif drawnCard == deck.card.twoCard:
+            self.movePawn(userPawn, 2)
+                
+        elif drawnCard == deck.card.oneCard:
+            self.movePawn(userPawn, 1)
+
     # This method will implement the draw method for the deck class and will
     # cause a player to move based on the drawn card.
+    
+    # Note: I have decided to use this method only for the computer players.
+    # The user will have a similar, yet different method, defined above.
     def drawAndMove(self, player):
 
         drawnCard = self.cardDeck.draw(self.cardDeck.cardStack)
-        print(drawnCard)
 
         # This section will calculate a player's most and least valuable pawns
         # by score.
@@ -316,6 +381,10 @@ class board:
         elif player.pawnList[2].score == leastValuablePawnScore != 65:
             leastValuablePawn = player.pawnList[2]
 
+        self.tempMostValuablePawn = mostValuablePawn
+        self.tempMiddleValuablePawn = middleValuablePawn
+        self.tempLeastValuablePawn = leastValuablePawn
+
         # This section sets the below booleans based on the player conducting
         # the move. The user player will choose their own move, while the rules
         # for computer players are as follows:
@@ -325,6 +394,10 @@ class board:
         # Dumb + Mean => Mean Move
         # Dumb + Nice => Dumb Move
 
+        # Note: I have deprecated the userOption field. This method in its
+        # entirety should only be used for computer players. This would also
+        # be good to refactor.
+        
         userOption = False
         meanOption = False
         smartOption = False
@@ -344,9 +417,29 @@ class board:
             meanOption = False
             smartOption = False
 
+        drawnCard = deck.card.elevenCard
+
         if drawnCard == deck.card.sorryCard:
             if meanOption == True:
-                print("Sorry!")
+                targetPawnBoardPos = 0
+                for i in range(3):
+                    if 0 < self.userPlayer.pawnList[i].score < 60 and self.userPlayer.pawnList[i].commonBoardPosition > targetPawnBoardPos:
+                        targetPawnBoardPos = self.userPlayer.pawnList[i].commonBoardPosition        
+                if leastValuablePawn.score == 0:
+                    moveTargetVal = targetPawnBoardPos - leastValuablePawn.colorCommonOffset
+                    if moveTargetVal < 0:
+                        moveTargetVal += 60
+                    self.movePawn(leastValuablePawn, moveTargetVal)
+                elif middleValuablePawn.score == 0:
+                    moveTargetVal = targetPawnBoardPos - middleValuablePawn.colorCommonOffset
+                    if moveTargetVal < 0:
+                        moveTargetVal += 60
+                    self.movePawn(middleValuablePawn, moveTargetVal)
+                elif mostValuablePawn.score == 0:
+                    moveTargetVal = targetPawnBoardPos - mostValuablePawn.colorCommonOffset
+                    if moveTargetVal < 0:
+                        moveTargetVal += 60
+                    self.movePawn(mostValuablePawn, moveTargetVal)
             else:
                 cardMoveValue = 4
                 if smartOption == True:
@@ -360,10 +453,20 @@ class board:
                 self.movePawn(mostValuablePawn, cardMoveValue)
             else:
                 self.movePawn(leastValuablePawn, cardMoveValue)
-                    
+
+        # Note: in the replacement option for the eleven card, that is the option in which a player
+        # swaps positions with the pawn of another player, the effect we have instead is to
+        # simply kick a user player's pawn back to its start zone. This adds added difficulty.
         elif drawnCard == deck.card.elevenCard:
             if meanOption == True:
-                print("Change places with an opponent.")
+                targetPawn = None
+                targetPawnScore = 0
+                for i in range(3):
+                    if 0 < self.userPlayer.pawnList[i].score < 60 and targetPawnScore < self.userPlayer.pawnList[i].score:
+                        targetPawnScore = self.userPlayer.pawnList[i].score
+                        targetPawn = self.userPlayer.pawnList[i]
+                self.resetPawn(targetPawn)
+                self.updatePlayerScores()
             else:
                 cardMoveValue = 11
                 if smartOption == True:
@@ -434,12 +537,73 @@ class board:
             else:
                 self.movePawn(leastValuablePawn, cardMoveValue)
 
-def testDrawAndMove():
-    testBoard = board("red", 3, True, False, True, True, False, False)
-    testBoard.drawAndMove(testBoard.compPlayer2)
-    print(testBoard.compPlayer2.pawnScores)
+def testDrawAndMovePlayer():
+    testBoard = board("red", 3, True, True, True, True, True, True)
+    print("Red, Blue, Yellow, Green: 10, 20, 30, 40")
+    testBoard.movePawn(testBoard.userPlayer.pawnList[0], 10)
+    testBoard.movePawn(testBoard.compPlayer1.pawnList[0], 20)
+    testBoard.movePawn(testBoard.compPlayer2.pawnList[0], 30)
+    testBoard.movePawn(testBoard.compPlayer3.pawnList[0], 40)
+    print(testBoard.userPlayer.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer1.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer2.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer3.pawnList[0].commonBoardPosition)
+    print("Player Move:")
+    testBoard.drawAndMovePlayer(testBoard.userPlayer.pawnList[1], testBoard.compPlayer3.pawnList[0], True)
+    print(testBoard.userPlayer.pawnList[1].commonBoardPosition)
+    print(testBoard.compPlayer1.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer2.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer3.pawnList[0].commonBoardPosition)
 
-testDrawAndMove()
+#testDrawAndMovePlayer()
+
+def testDrawAndMove():
+    testBoard = board("red", 3, True, True, True, True, True, True)
+    print("Red, Blue, Yellow, Green: 10, 20, 30, 40")
+    testBoard.movePawn(testBoard.userPlayer.pawnList[0], 10)
+    testBoard.movePawn(testBoard.compPlayer1.pawnList[0], 20)
+    testBoard.movePawn(testBoard.compPlayer2.pawnList[0], 30)
+    testBoard.movePawn(testBoard.compPlayer3.pawnList[0], 40)
+    print(testBoard.userPlayer.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer1.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer2.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer3.pawnList[0].commonBoardPosition)
+    print("Blue swap with Red:")
+    testBoard.drawAndMove(testBoard.compPlayer1)
+    print(testBoard.userPlayer.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer1.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer2.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer3.pawnList[0].commonBoardPosition)
+    print("Move Red pawn 30:")
+    testBoard.movePawn(testBoard.userPlayer.pawnList[0], 30)
+    print(testBoard.userPlayer.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer1.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer2.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer3.pawnList[0].commonBoardPosition)
+    print("Green swap with Red:")
+    testBoard.drawAndMove(testBoard.compPlayer3)
+    print(testBoard.userPlayer.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer1.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer2.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer3.pawnList[0].commonBoardPosition)
+    print("Move Red pawn 40:")
+    testBoard.movePawn(testBoard.userPlayer.pawnList[0], 40)
+    print(testBoard.userPlayer.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer1.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer2.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer3.pawnList[0].commonBoardPosition)
+    print("Yellow swap with Red:")
+    testBoard.drawAndMove(testBoard.compPlayer2)
+    print(testBoard.userPlayer.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer1.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer2.pawnList[0].commonBoardPosition)
+    print(testBoard.compPlayer3.pawnList[0].commonBoardPosition)
+
+    print(testBoard.tempMostValuablePawn)
+    print(testBoard.tempMiddleValuablePawn)
+    print(testBoard.tempLeastValuablePawn)
+    
+#testDrawAndMove()
 
 def testBooleans():
     testBoard = board("red", 3, True, False, True, True, False, False)
