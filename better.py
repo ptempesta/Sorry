@@ -41,18 +41,15 @@ class welcome_page(tk.Frame):
         self.inst_fm.pack()
 
         self.inst_fm.grid_propagate(0)
-        # implement stretchability
         self.inst_fm.grid_rowconfigure(0, weight=1)
         self.inst_fm.grid_columnconfigure(0, weight=1)
 
         self.file = open("instructions.txt", "r")
-        # self.file.read()
-
 
         self.inst = tk.Text(self.inst_fm)
-
         self.inst.insert(tk.INSERT, self.file.read())
         self.inst.grid(row=0, column=0, sticky="nsew", padx=2, pady=2)
+
         self.file.close()
 
     def resume_game(self):
